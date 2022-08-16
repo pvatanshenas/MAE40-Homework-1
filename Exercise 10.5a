@@ -1,0 +1,14 @@
+syms L C R Il Ic Ir Vi Vo Va s
+eq1 = Il == Ic == Ir;
+eq2 = Vi - Va == L*Il*s;
+eq3 = Va - Vo == Ir*R;
+eq4 = Ic == C*Vo*s;
+eq5 = L*C == 1;
+eq6 = R*C == 0.5;
+A = solve(eq1, eq2, eq3, eq4, eq5, eq6, Vi, Vo);
+% Vo / Vi = 1/LCs^2 + RCs + 1, 
+% because LC = 1, RC = 0.5 => Vo(s) / Vi(s) = 1 / s^2 + 0.5*s + 1
+figure(1);
+bode(tf([1], [1 0.5 1]))
+% Wc(cutoff frequency) = 1, because its the square root of transfer function Wc^2 / s^2 + 2*Wc*zeta*s + Wc^2.
+% zeta(damping): 0.5*s = 2*1*zeta*s => zeta = 0.25 
